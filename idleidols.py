@@ -2,6 +2,8 @@ import arcade
 import random
 import time
 import threading
+import datetime
+
 
 # --- Constants ---
 
@@ -54,12 +56,16 @@ class MyGame(arcade.Window):
         self.coinsAdded = arcade.draw_text("+ 0", 600, 700, arcade.color.YELLOW, 20)
         self.attack = 50        
         self.wave = 1
+        self.start = 0
+        self.stop = 0
+        self.timepassed = 0
         self.level = 8
         self.levelWave = arcade.draw_text("Level " + str(self.level) + ", Wave (" + str(self.wave) + "/5)", 545, 604, arcade.color.BLACK, 20)
         self.enemydefense = 0
         self.bossregen = 1
         self.is_boss = False
         self.bossHp = 2500
+        self.bossTime = 30
         self.upgradeNames = [""]
         self.gameStarted = False
         
@@ -152,6 +158,12 @@ class MyGame(arcade.Window):
         self.coinText.draw()
         self.coinsAdded.draw()
         self.levelWave.draw()
+        if self.is_boss:
+            self.stop = datetime.datetime.now()
+            self.timepassed = (self.stop - self.start).total_seconds()
+            self.bossTime = 30 - self.timepassed
+            arcade.draw_text(str(round(self.bossTime)), 650, 300, arcade.color.BLACK, 15)
+
 
         
 
@@ -218,6 +230,8 @@ class MyGame(arcade.Window):
                             self.bossHp = self.level/10 * 2500 * self.level/10
                             self.hp = self.bossHp
                             self.hpbar = hpbar(200-self.hp/self.bossHp*200)
+                            self.start = datetime.datetime.now()
+                            self.bossTime = 30
                             
                         else:
 
@@ -228,6 +242,9 @@ class MyGame(arcade.Window):
                             self.hpbar = hpbar(200-self.hp/self.baseHp*200)
                             self.levelWave = arcade.draw_text("Level " + str(self.level) + ", Wave (" + str(self.wave) + "/5)", 545, 604, arcade.color.BLACK, 20)
                             #### Error must be fixed ####
+                            
+                            
+                            
                             """def gfg():
                                 print("Worked")
   

@@ -1,7 +1,8 @@
-import threading
+import datetime
 
-def gfg():
-    print("GeeksforGeeks\n")
+start = datetime.datetime.now()
+input("Press enter to stop.")
+stop = datetime.datetime.now()
+result = (stop - start).total_seconds()
 
-timer = threading.Timer(2.0, gfg)
-timer.start()
+print(result)
