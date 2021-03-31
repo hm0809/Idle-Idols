@@ -6,7 +6,9 @@ import datetime
 
 
 # --- Constants ---
-
+gameview = False
+pauseview = False
+startview = True
 
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 750
@@ -87,67 +89,72 @@ class MyGame(arcade.Window):
     
 
     def setup(self):
-        # Set the background color
-        
-        arcade.set_background_color(arcade.color.DARK_BLUE)
-        #### CONFIGURING ALL UPGRADE BUTTONS, MAY NOT NEED SPECIFIC VARIABLES IN THE FUTURE --> SEE IN NOTES BELOW ####
-        self.upgradeButton1 = arcade.Sprite("upgrade.png")
-        self.upgradeButton2 = arcade.Sprite("upgrade.png")
-        self.upgradeButton3 = arcade.Sprite("upgrade.png")
-        self.upgradeButton4 = arcade.Sprite("upgrade.png")
-        self.upgradeButton5 = arcade.Sprite("upgrade.png")
-        self.upgradeButton6 = arcade.Sprite("upgrade.png")
-        self.upgradeButton7 = arcade.Sprite("upgrade.png")
-        self.upgradeButton8 = arcade.Sprite("upgrade.png")
-        self.upgradeButton9 = arcade.Sprite("upgrade.png")
-        self.upgradeButton10 = arcade.Sprite("upgrade.png")
-        self.upgradeButton11 = arcade.Sprite("upgrade.png")
-        self.upgradeButton12 = arcade.Sprite("upgrade.png")
-        self.upgradeButton13 = arcade.Sprite("upgrade.png")
-        self.upgradeButton14 = arcade.Sprite("upgrade.png")
-        self.upgradeButton15 = arcade.Sprite("upgrade.png")
-        self.upgradeButton16 = arcade.Sprite("upgrade.png")
+        if gameview:
+            # Set the background color
+            
+            arcade.set_background_color(arcade.color.DARK_BLUE)
+            #### CONFIGURING ALL UPGRADE BUTTONS, MAY NOT NEED SPECIFIC VARIABLES IN THE FUTURE --> SEE IN NOTES BELOW ####
+            self.upgradeButton1 = arcade.Sprite("upgrade.png")
+            self.upgradeButton2 = arcade.Sprite("upgrade.png")
+            self.upgradeButton3 = arcade.Sprite("upgrade.png")
+            self.upgradeButton4 = arcade.Sprite("upgrade.png")
+            self.upgradeButton5 = arcade.Sprite("upgrade.png")
+            self.upgradeButton6 = arcade.Sprite("upgrade.png")
+            self.upgradeButton7 = arcade.Sprite("upgrade.png")
+            self.upgradeButton8 = arcade.Sprite("upgrade.png")
+            self.upgradeButton9 = arcade.Sprite("upgrade.png")
+            self.upgradeButton10 = arcade.Sprite("upgrade.png")
+            self.upgradeButton11 = arcade.Sprite("upgrade.png")
+            self.upgradeButton12 = arcade.Sprite("upgrade.png")
+            self.upgradeButton13 = arcade.Sprite("upgrade.png")
+            self.upgradeButton14 = arcade.Sprite("upgrade.png")
+            self.upgradeButton15 = arcade.Sprite("upgrade.png")
+            self.upgradeButton16 = arcade.Sprite("upgrade.png")
 
-        
-        self.upgradeButtons = []
-        self.upgradeButtons.append(self.upgradeButton1)
-        self.upgradeButtons.append(self.upgradeButton2)
-        self.upgradeButtons.append(self.upgradeButton3)
-        self.upgradeButtons.append(self.upgradeButton4)
-        self.upgradeButtons.append(self.upgradeButton5)
-        self.upgradeButtons.append(self.upgradeButton6)
-        self.upgradeButtons.append(self.upgradeButton7)
-        self.upgradeButtons.append(self.upgradeButton8)
-        self.upgradeButtons.append(self.upgradeButton9)
-        self.upgradeButtons.append(self.upgradeButton10)
-        self.upgradeButtons.append(self.upgradeButton11)
-        self.upgradeButtons.append(self.upgradeButton12)
-        self.upgradeButtons.append(self.upgradeButton13)
-        self.upgradeButtons.append(self.upgradeButton14)
-        self.upgradeButtons.append(self.upgradeButton15)        
-        self.upgradeButtons.append(self.upgradeButton16)
+            
+            self.upgradeButtons = []
+            self.upgradeButtons.append(self.upgradeButton1)
+            self.upgradeButtons.append(self.upgradeButton2)
+            self.upgradeButtons.append(self.upgradeButton3)
+            self.upgradeButtons.append(self.upgradeButton4)
+            self.upgradeButtons.append(self.upgradeButton5)
+            self.upgradeButtons.append(self.upgradeButton6)
+            self.upgradeButtons.append(self.upgradeButton7)
+            self.upgradeButtons.append(self.upgradeButton8)
+            self.upgradeButtons.append(self.upgradeButton9)
+            self.upgradeButtons.append(self.upgradeButton10)
+            self.upgradeButtons.append(self.upgradeButton11)
+            self.upgradeButtons.append(self.upgradeButton12)
+            self.upgradeButtons.append(self.upgradeButton13)
+            self.upgradeButtons.append(self.upgradeButton14)
+            self.upgradeButtons.append(self.upgradeButton15)        
+            self.upgradeButtons.append(self.upgradeButton16)
 
 
-        for i in range(16):
-            self.upgradeButtons[i].width = 85        
-            self.upgradeButtons[i].height = 25
-            self.upgradeButtons[i].center_x = 200
-            self.upgradeButtons[i].center_y = 591 - i * 37
+            for i in range(16):
+                self.upgradeButtons[i].width = 85        
+                self.upgradeButtons[i].height = 25
+                self.upgradeButtons[i].center_x = 200
+                self.upgradeButtons[i].center_y = 591 - i * 37
+                
+                
+            print(self.upgradeButton1.width)
+
+            self.coinText = arcade.draw_text("Coins: " + str(self.coins), 395, 700, arcade.color.BLACK, 20)
+            self.coinText.bold = True
+            
+            self.enemy2 = arcade.Sprite("enemy" + str(self.enemySprites) + ".png", 8)
+            #self.enemy2.width = 200
+            #self.enemy2.height = 200
+            self.enemy2.center_x = 650
+            self.enemy2.center_y = 350
             
             
-        print(self.upgradeButton1.width)
-
-        self.coinText = arcade.draw_text("Coins: " + str(self.coins), 395, 700, arcade.color.BLACK, 20)
-        self.coinText.bold = True
+            print(self.level % 7)
         
-        self.enemy2 = arcade.Sprite("enemy" + str(self.enemySprites) + ".png", 8)
-        #self.enemy2.width = 200
-        #self.enemy2.height = 200
-        self.enemy2.center_x = 650
-        self.enemy2.center_y = 350
-        
-        
-        print(self.level % 7)
+        if startview:
+            arcade.set_background_color(arcade.csscolor.DARK_SLATE_BLUE)
+            arcade.set_viewport(0, SCREEN_WIDTH - 1, 0, SCREEN_HEIGHT - 1)
 
     
   
@@ -162,68 +169,77 @@ class MyGame(arcade.Window):
     
 
     def on_draw(self):
-        arcade.start_render()
-        #self.enemy.draw()
-        #self.enemy2 = arcade.Sprite("enemy" + str(self.enemySprites) + ".png", 8)
-        #self.enemy2 = arcade.Sprite("enemy1.png", 8)
+        if gameview:
+            arcade.start_render()
+            #self.enemy.draw()
+            #self.enemy2 = arcade.Sprite("enemy" + str(self.enemySprites) + ".png", 8)
+            #self.enemy2 = arcade.Sprite("enemy1.png", 8)
+            
+            
+            self.hpbar.draw()
+            self.enemy2.draw()
+            
+            #print(self.coinText.text)
+            self.coinText.draw()
+            self.coinsAdded.draw()
+            self.levelWave.draw()
+            if self.is_boss == True:
+                self.stop = datetime.datetime.now()
+                self.timepassed = (self.stop - self.start).total_seconds()
+                self.bossTime = 30 - self.timepassed
+                arcade.draw_text(str(round(self.bossTime)), 650, 300, arcade.color.BLACK, 15)
+                if self.bossTime <= 0 and self.bossKilled == False:
+                    self.is_boss = False
+                    self.wave = 1
+                    #currentLevel = self.level
+                    self.level = self.level - 9
+                    self.levelWave = arcade.draw_text("Level " + str(self.level) + ", Wave (" + str(self.wave) + "/5)", 545, 604, arcade.color.BLACK, 20)
+                    self.baseHp = 400
+                    for i in range(self.level):
+                        self.baseHp *= (1.1 + round(self.level % 5) /10 * 0.2)
+                        self.hp = round(self.baseHp)
+                        self.hpbar = hpbar(200-self.hp/self.baseHp*200)
+                elif self.bossTime >= 25 and self.bossKilled == True:
+                    print("bosskilled")
         
         
-        self.hpbar.draw()
-        self.enemy2.draw()
+
+
+                    
+                    
+                    
+                    
+
+
+            
+
+            
+            
+            
+            self.gameStarted = True
+            #UPGRADE MENU AND PLATFORM
+            arcade.draw_rectangle_filled(650, 200, 400, 100, arcade.color.BLUE)
+            arcade.draw_lrtb_rectangle_filled(0, 350, 750, 0, arcade.color.LIGHT_BROWN)
         
-        #print(self.coinText.text)
-        self.coinText.draw()
-        self.coinsAdded.draw()
-        self.levelWave.draw()
-        if self.is_boss == True:
-            self.stop = datetime.datetime.now()
-            self.timepassed = (self.stop - self.start).total_seconds()
-            self.bossTime = 30 - self.timepassed
-            arcade.draw_text(str(round(self.bossTime)), 650, 300, arcade.color.BLACK, 15)
-            if self.bossTime <= 0 and self.bossKilled == False:
-                self.is_boss = False
-                self.wave = 1
-                #currentLevel = self.level
-                self.level = self.level - 9
-                self.levelWave = arcade.draw_text("Level " + str(self.level) + ", Wave (" + str(self.wave) + "/5)", 545, 604, arcade.color.BLACK, 20)
-                self.baseHp = 400
-                for i in range(self.level):
-                    self.baseHp *= (1.1 + round(self.level % 5) /10 * 0.2)
-                    self.hp = round(self.baseHp)
-                    self.hpbar = hpbar(200-self.hp/self.baseHp*200)
-            elif self.bossTime >= 25 and self.bossKilled == True:
-                print("bosskilled")
+            for i in self.upgradeButtons:
+                i.draw()
 
-                
-                
-                
-                
+            #########UPGRADE MENU#########
+
+            #Title
+            arcade.draw_text("UPGRADES", 85, 680, arcade.color.BLACK, 24)
 
 
-        
+            #UPGRADE
 
-        
-        
-        
-        self.gameStarted = True
-        #UPGRADE MENU AND PLATFORM
-        arcade.draw_rectangle_filled(650, 200, 400, 100, arcade.color.BLUE)
-        arcade.draw_lrtb_rectangle_filled(0, 350, 750, 0, arcade.color.LIGHT_BROWN)
-    
-        for i in self.upgradeButtons:
-            i.draw()
+            for i in range(16):
+                arcade.draw_text("UPGRADE " + str(i+1), 50, 580-i*37, arcade.color.BLACK, 12)
+                arcade.draw_text("COST " + str(round(self.upgradeCostList[i])), 250, 585-i*37, arcade.color.BLACK, 12)
 
-        #########UPGRADE MENU#########
-
-        #Title
-        arcade.draw_text("UPGRADES", 85, 680, arcade.color.BLACK, 24)
-
-
-        #UPGRADE
-
-        for i in range(16):
-            arcade.draw_text("UPGRADE " + str(i+1), 50, 580-i*37, arcade.color.BLACK, 12)
-            arcade.draw_text("COST " + str(round(self.upgradeCostList[i])), 250, 585-i*37, arcade.color.BLACK, 12)
+        if startview:
+            arcade.start_render()
+            arcade.draw_text("Idle Idols", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, arcade.color.WHITE, font_size=35, anchor_x="center")
+            arcade.draw_text("Click to play", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2-75, arcade.color.WHITE, font_size=15, anchor_x="center")
             
             
         
@@ -236,96 +252,101 @@ class MyGame(arcade.Window):
         #arcade.draw_rectangle_filled(650, 540, 150, 60, arcade.color.GREEN)
 
     def on_mouse_press(self, x, y, button, modifiers):
-        if button == arcade.MOUSE_BUTTON_LEFT:
-            print("Left mouse button pressed at", x, y)
-            ####Checks to see if player has clicked on enemy####
-            if(x >= 550 and x <= 750 and y >= 250 and y <= 450):
-                #Will respawn a new enemy if the attack is more than the remaining health of the enemy; this stops errors with the HP bar because the width can't go below zero
-                if self.attack >= self.hp and self.is_boss != True or self.attack >= self.hp and self.bossKilled == True:
-                    self.hp = self.baseHp
-                    
-                    
-                    self.enemy2 = arcade.Sprite("enemy" + str(self.wave) + ".png", 8)
-                    
-                    
-                    if self.level % 10 == 0:
-                        self.hpbar = hpbar(200-self.hp/self.bossHp*200)
-                    else:
-                        self.hpbar = hpbar(200-self.hp/self.baseHp*200)
-                    self.coins += 2
-                    self.coinsAdded = arcade.draw_text("+ " + str(2), 600, 700, arcade.color.YELLOW, 20)
-                    self.coinText = arcade.draw_text("Coins: " + str(self.coins), 395, 700, arcade.color.BLACK, 20)
-                    
-                    print("coins: " + str(self.coins))
-                    self.hpbar.draw()
-                    #### Wave goes up by one every time you kill an enemy, new level every 5 waves ####
-                    if self.wave < 5:
-                        self.wave += 1
-                        #### !IMPORTANT NOTEE! I CHANGE THE TEXT IN THIS FUNCTION INSTEAD OF THE ON_DRAW FUNCTION BECAUSE I THINK IT IS LESS CPU DEMANDING AS YOU ARE NOT RUNNING IT 80 TIMES A SECOND ####
-                        self.levelWave = arcade.draw_text("Level " + str(self.level) + ", Wave (" + str(self.wave) + "/5)", 545, 604, arcade.color.BLACK, 20)
-                    else:
-                        self.level += 1
+        if gameview:
+            if button == arcade.MOUSE_BUTTON_LEFT:
+                print("Left mouse button pressed at", x, y)
+                ####Checks to see if player has clicked on enemy####
+                if(x >= 550 and x <= 750 and y >= 250 and y <= 450):
+                    #Will respawn a new enemy if the attack is more than the remaining health of the enemy; this stops errors with the HP bar because the width can't go below zero
+                    if self.attack >= self.hp and self.is_boss != True or self.attack >= self.hp and self.bossKilled == True:
+                        self.hp = self.baseHp
+                        
+                        
+                        self.enemy2 = arcade.Sprite("enemy" + str(self.wave) + ".png", 8)
+                        
+                        
                         if self.level % 10 == 0:
-                            self.bossKilled = False
-                            self.is_boss = True
-                            self.bossHp = self.level/10 * 2500 * self.level/10
-                            self.hp = self.bossHp
                             self.hpbar = hpbar(200-self.hp/self.bossHp*200)
-                            self.start = datetime.datetime.now()
-                            self.bossTime = 30
-                            
                         else:
-
-                            self.wave = 1
-                            
-                            self.baseHp *= (1.1 + round(self.level % 5) /10 * 0.2)
-                            self.hp = round(self.baseHp)
                             self.hpbar = hpbar(200-self.hp/self.baseHp*200)
+                        self.coins += 2
+                        self.coinsAdded = arcade.draw_text("+ " + str(2), 600, 700, arcade.color.YELLOW, 20)
+                        self.coinText = arcade.draw_text("Coins: " + str(self.coins), 395, 700, arcade.color.BLACK, 20)
+                        
+                        print("coins: " + str(self.coins))
+                        self.hpbar.draw()
+                        #### Wave goes up by one every time you kill an enemy, new level every 5 waves ####
+                        if self.wave < 5:
+                            self.wave += 1
+                            #### !IMPORTANT NOTEE! I CHANGE THE TEXT IN THIS FUNCTION INSTEAD OF THE ON_DRAW FUNCTION BECAUSE I THINK IT IS LESS CPU DEMANDING AS YOU ARE NOT RUNNING IT 80 TIMES A SECOND ####
                             self.levelWave = arcade.draw_text("Level " + str(self.level) + ", Wave (" + str(self.wave) + "/5)", 545, 604, arcade.color.BLACK, 20)
-                            #### Error must be fixed ####
-                            
-                            
-                            
-                            """def gfg():
-                                print("Worked")
-  
-                            timer = threading.Timer(2.0, gfg)
-                            timer.start()"""
-                elif self.is_boss == True and self.attack >= self.hp:
-                    self.bossKilled = True
-                    self.is_boss = False
-                    
-                #### TAKES A WAY HEALTH ON HP VARIABLE AND THE HP BAR USING A SPECIAL ALGORITHM    
-                else:
-                    self.hp -= self.attack
-                    #### Width of HP bar is 200 pixels, therfore to workout how much of the bar is remaining, you need to convert the remaining hp as a percentage of the base hp (which will create 100 pixels of data) then multiply by 2 to get the doubled percentage and therfore the amount of pixels to fill the hp bar by
-                    if self.level % 10 == 0:
-                        self.hpbar = hpbar(200-self.hp/self.bossHp*200)
-                    else:
-                        self.hpbar = hpbar(200-self.hp/self.baseHp*200)
-                    self.hpbar.draw()
-                
-                
-                print("Hit on enemy", self.hp)
-
-            #### This loop checks to see if the user has hit one of the upgrade buttons and if so which one, using the i operator to decipher the y co-ordinate and therfore which button
-            for i in range(16):
-                if x >= 160 and x <= 240 and y >= 580 - i*37 and y <= 600 - i*37:
-                    #### Uses lists as an easy way to set costs and buffs ####
-                    if self.coins >= self.upgradeCostList[i]:
-                        self.coins -= self.upgradeCostList[i]
-                        #### Fixing can't divide by zero error ####
-                        if i != 0:
-                            #### Algorithm creates exponential growth for the upgrades to ensure a more challenging game, exponent increases as the upgrades get higher ####
-                            self.upgradeCostList[i] *= 1 + i * (0.15/i)
                         else:
-                            self.upgradeCostList[i] *= 1.1
-                        self.attack += self.upgradeAttackBuffList[i]
+                            self.level += 1
+                            if self.level % 10 == 0:
+                                self.bossKilled = False
+                                self.is_boss = True
+                                self.bossHp = self.level/10 * 2500 * self.level/10
+                                self.hp = self.bossHp
+                                self.hpbar = hpbar(200-self.hp/self.bossHp*200)
+                                self.start = datetime.datetime.now()
+                                self.bossTime = 30
+                                
+                            else:
 
-                        print("Upgrade " + str(i+1) + " Purchased", "You have " + str(self.coins) + " left", "Your attack power is " + str(self.attack))
+                                self.wave = 1
+                                
+                                self.baseHp *= (1.1 + round(self.level % 5) /10 * 0.2)
+                                self.hp = round(self.baseHp)
+                                self.hpbar = hpbar(200-self.hp/self.baseHp*200)
+                                self.levelWave = arcade.draw_text("Level " + str(self.level) + ", Wave (" + str(self.wave) + "/5)", 545, 604, arcade.color.BLACK, 20)
+                                #### Error must be fixed ####
+                                
+                                
+                                
+                                """def gfg():
+                                    print("Worked")
+    
+                                timer = threading.Timer(2.0, gfg)
+                                timer.start()"""
+                    elif self.is_boss == True and self.attack >= self.hp:
+                        self.bossKilled = True
+                        self.is_boss = False
+                        
+                    #### TAKES A WAY HEALTH ON HP VARIABLE AND THE HP BAR USING A SPECIAL ALGORITHM    
                     else:
-                        print("You do not have the funds for this sir")
-                self.coinText = arcade.draw_text("Coins: " + str(round(self.coins)), 395, 700, arcade.color.BLACK, 20)
+                        self.hp -= self.attack
+                        #### Width of HP bar is 200 pixels, therfore to workout how much of the bar is remaining, you need to convert the remaining hp as a percentage of the base hp (which will create 100 pixels of data) then multiply by 2 to get the doubled percentage and therfore the amount of pixels to fill the hp bar by
+                        if self.level % 10 == 0:
+                            self.hpbar = hpbar(200-self.hp/self.bossHp*200)
+                        else:
+                            self.hpbar = hpbar(200-self.hp/self.baseHp*200)
+                        self.hpbar.draw()
+                    
+                    
+                    print("Hit on enemy", self.hp)
+
+                #### This loop checks to see if the user has hit one of the upgrade buttons and if so which one, using the i operator to decipher the y co-ordinate and therfore which button
+                for i in range(16):
+                    if x >= 160 and x <= 240 and y >= 580 - i*37 and y <= 600 - i*37:
+                        #### Uses lists as an easy way to set costs and buffs ####
+                        if self.coins >= self.upgradeCostList[i]:
+                            self.coins -= self.upgradeCostList[i]
+                            #### Fixing can't divide by zero error ####
+                            if i != 0:
+                                #### Algorithm creates exponential growth for the upgrades to ensure a more challenging game, exponent increases as the upgrades get higher ####
+                                self.upgradeCostList[i] *= 1 + i * (0.15/i)
+                            else:
+                                self.upgradeCostList[i] *= 1.1
+                            self.attack += self.upgradeAttackBuffList[i]
+
+                            print("Upgrade " + str(i+1) + " Purchased", "You have " + str(self.coins) + " left", "Your attack power is " + str(self.attack))
+                        else:
+                            print("You do not have the funds for this sir")
+                    self.coinText = arcade.draw_text("Coins: " + str(round(self.coins)), 395, 700, arcade.color.BLACK, 20)
+        if startview:
+            startview = False
+            gameview = True
+            
         
                 
                 
