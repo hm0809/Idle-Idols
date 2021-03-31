@@ -28,8 +28,7 @@ class hpbar:
 
 
 
-
-class enemy:
+"""class enemy:
     def __init__(self, position_x, position_y, radius, color, hp):
         self.position_x = position_x
         self.position_y = position_y
@@ -37,8 +36,8 @@ class enemy:
         self.color = color
 
     def draw(self):
-        
-        arcade.draw_circle_filled(self.position_x, self.position_y, self.radius, self.color)
+
+        arcade.draw_circle_filled(self.position_x, self.position_y, self.radius, self.color)"""
 
 
 
@@ -51,7 +50,7 @@ class MyGame(arcade.Window):
         self.baseHp = 400
         self.hp = self.baseHp
         self.coins = 500000000
-        self.enemy = enemy(650, 350, 100, arcade.color.BLUE, self.hp)
+        #self.enemy = enemy(650, 350, 100, arcade.color.BLUE, self.hp)
         self.hpbar = hpbar(200-self.hp/self.baseHp*200)
         self.coinsAdded = arcade.draw_text("+ 0", 600, 700, arcade.color.YELLOW, 20)
         self.attack = 50        
@@ -68,9 +67,12 @@ class MyGame(arcade.Window):
         self.bossTime = 30
         self.upgradeNames = [""]
         self.gameStarted = False
+        self.bossKilled = False
+        self.enemySprites = 0
         
         self.upgradeCostList = [10, 20, 50, 100, 150, 200, 350, 600, 750, 1000, 1500, 2500, 4000, 10000, 50000, 250000]
         self.upgradeAttackBuffList = [1, 2, 4, 8, 16, 32, 64, 125, 250, 500, 1000, 2000, 2500, 3000, 3500, 5000]
+        self.upgradeMenuPage = 0
         
 
         #DPS Timer
@@ -137,6 +139,15 @@ class MyGame(arcade.Window):
 
         self.coinText = arcade.draw_text("Coins: " + str(self.coins), 395, 700, arcade.color.BLACK, 20)
         self.coinText.bold = True
+        
+        self.enemy2 = arcade.Sprite("enemy" + str(self.enemySprites) + ".png", 8)
+        #self.enemy2.width = 200
+        #self.enemy2.height = 200
+        self.enemy2.center_x = 650
+        self.enemy2.center_y = 350
+        
+        
+        print(self.level % 7)
 
     
   
@@ -152,17 +163,41 @@ class MyGame(arcade.Window):
 
     def on_draw(self):
         arcade.start_render()
-        self.enemy.draw()
+        #self.enemy.draw()
+        #self.enemy2 = arcade.Sprite("enemy" + str(self.enemySprites) + ".png", 8)
+        #self.enemy2 = arcade.Sprite("enemy1.png", 8)
+        
+        
         self.hpbar.draw()
+        self.enemy2.draw()
+        
         #print(self.coinText.text)
         self.coinText.draw()
         self.coinsAdded.draw()
         self.levelWave.draw()
-        if self.is_boss:
+        if self.is_boss == True:
             self.stop = datetime.datetime.now()
             self.timepassed = (self.stop - self.start).total_seconds()
             self.bossTime = 30 - self.timepassed
             arcade.draw_text(str(round(self.bossTime)), 650, 300, arcade.color.BLACK, 15)
+            if self.bossTime <= 0 and self.bossKilled == False:
+                self.is_boss = False
+                self.wave = 1
+                #currentLevel = self.level
+                self.level = self.level - 9
+                self.levelWave = arcade.draw_text("Level " + str(self.level) + ", Wave (" + str(self.wave) + "/5)", 545, 604, arcade.color.BLACK, 20)
+                self.baseHp = 400
+                for i in range(self.level):
+                    self.baseHp *= (1.1 + round(self.level % 5) /10 * 0.2)
+                    self.hp = round(self.baseHp)
+                    self.hpbar = hpbar(200-self.hp/self.baseHp*200)
+            elif self.bossTime >= 25 and self.bossKilled == True:
+                print("bosskilled")
+
+                
+                
+                
+                
 
 
         
@@ -188,7 +223,7 @@ class MyGame(arcade.Window):
 
         for i in range(16):
             arcade.draw_text("UPGRADE " + str(i+1), 50, 580-i*37, arcade.color.BLACK, 12)
-            arcade.draw_text("COST " + str(round(self.upgradeCostList[i])), 280, 585-i*37, arcade.color.BLACK, 12)
+            arcade.draw_text("COST " + str(round(self.upgradeCostList[i])), 250, 585-i*37, arcade.color.BLACK, 12)
             
             
         
@@ -206,8 +241,13 @@ class MyGame(arcade.Window):
             ####Checks to see if player has clicked on enemy####
             if(x >= 550 and x <= 750 and y >= 250 and y <= 450):
                 #Will respawn a new enemy if the attack is more than the remaining health of the enemy; this stops errors with the HP bar because the width can't go below zero
-                if self.attack >= self.hp:
+                if self.attack >= self.hp and self.is_boss != True or self.attack >= self.hp and self.bossKilled == True:
                     self.hp = self.baseHp
+                    
+                    
+                    self.enemy2 = arcade.Sprite("enemy" + str(self.wave) + ".png", 8)
+                    
+                    
                     if self.level % 10 == 0:
                         self.hpbar = hpbar(200-self.hp/self.bossHp*200)
                     else:
@@ -226,6 +266,7 @@ class MyGame(arcade.Window):
                     else:
                         self.level += 1
                         if self.level % 10 == 0:
+                            self.bossKilled = False
                             self.is_boss = True
                             self.bossHp = self.level/10 * 2500 * self.level/10
                             self.hp = self.bossHp
@@ -250,6 +291,9 @@ class MyGame(arcade.Window):
   
                             timer = threading.Timer(2.0, gfg)
                             timer.start()"""
+                elif self.is_boss == True and self.attack >= self.hp:
+                    self.bossKilled = True
+                    self.is_boss = False
                     
                 #### TAKES A WAY HEALTH ON HP VARIABLE AND THE HP BAR USING A SPECIAL ALGORITHM    
                 else:
