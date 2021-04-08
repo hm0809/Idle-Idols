@@ -60,7 +60,7 @@ class MyGame(arcade.Window):
         self.start = 0
         self.stop = 0
         self.timepassed = 0
-        self.level = 8
+        self.level = 1
         self.levelWave = arcade.draw_text("Level " + str(self.level) + ", Wave (" + str(self.wave) + "/5)", 545, 604, arcade.color.BLACK, 20)
         self.enemydefense = 0
         self.bossregen = 1
