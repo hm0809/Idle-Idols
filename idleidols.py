@@ -89,68 +89,69 @@ class MyGame(arcade.Window):
     
 
     def setup(self):
+        self.upgradeButton1 = arcade.Sprite("upgrade.png")
+        self.upgradeButton2 = arcade.Sprite("upgrade.png")
+        self.upgradeButton3 = arcade.Sprite("upgrade.png")
+        self.upgradeButton4 = arcade.Sprite("upgrade.png")
+        self.upgradeButton5 = arcade.Sprite("upgrade.png")
+        self.upgradeButton6 = arcade.Sprite("upgrade.png")
+        self.upgradeButton7 = arcade.Sprite("upgrade.png")
+        self.upgradeButton8 = arcade.Sprite("upgrade.png")
+        self.upgradeButton9 = arcade.Sprite("upgrade.png")
+        self.upgradeButton10 = arcade.Sprite("upgrade.png")
+        self.upgradeButton11 = arcade.Sprite("upgrade.png")
+        self.upgradeButton12 = arcade.Sprite("upgrade.png")
+        self.upgradeButton13 = arcade.Sprite("upgrade.png")
+        self.upgradeButton14 = arcade.Sprite("upgrade.png")
+        self.upgradeButton15 = arcade.Sprite("upgrade.png")
+        self.upgradeButton16 = arcade.Sprite("upgrade.png")
+
+        
+        self.upgradeButtons = []
+        self.upgradeButtons.append(self.upgradeButton1)
+        self.upgradeButtons.append(self.upgradeButton2)
+        self.upgradeButtons.append(self.upgradeButton3)
+        self.upgradeButtons.append(self.upgradeButton4)
+        self.upgradeButtons.append(self.upgradeButton5)
+        self.upgradeButtons.append(self.upgradeButton6)
+        self.upgradeButtons.append(self.upgradeButton7)
+        self.upgradeButtons.append(self.upgradeButton8)
+        self.upgradeButtons.append(self.upgradeButton9)
+        self.upgradeButtons.append(self.upgradeButton10)
+        self.upgradeButtons.append(self.upgradeButton11)
+        self.upgradeButtons.append(self.upgradeButton12)
+        self.upgradeButtons.append(self.upgradeButton13)
+        self.upgradeButtons.append(self.upgradeButton14)
+        self.upgradeButtons.append(self.upgradeButton15)        
+        self.upgradeButtons.append(self.upgradeButton16)
+
+
+        for i in range(16):
+            self.upgradeButtons[i].width = 85        
+            self.upgradeButtons[i].height = 25
+            self.upgradeButtons[i].center_x = 200
+            self.upgradeButtons[i].center_y = 591 - i * 37
+            
+            
+        print(self.upgradeButton1.width)
+
+        self.coinText = arcade.draw_text("Coins: " + str(self.coins), 395, 700, arcade.color.BLACK, 20)
+        self.coinText.bold = True
+        
+        self.enemy2 = arcade.Sprite("enemy" + str(self.enemySprites) + ".png", 8)
+        #self.enemy2.width = 200
+        #self.enemy2.height = 200
+        self.enemy2.center_x = 650
+        self.enemy2.center_y = 350
+        
+        
+        print(self.level % 7)
         if gameview:
             # Set the background color
             
             arcade.set_background_color(arcade.color.DARK_BLUE)
             #### CONFIGURING ALL UPGRADE BUTTONS, MAY NOT NEED SPECIFIC VARIABLES IN THE FUTURE --> SEE IN NOTES BELOW ####
-            self.upgradeButton1 = arcade.Sprite("upgrade.png")
-            self.upgradeButton2 = arcade.Sprite("upgrade.png")
-            self.upgradeButton3 = arcade.Sprite("upgrade.png")
-            self.upgradeButton4 = arcade.Sprite("upgrade.png")
-            self.upgradeButton5 = arcade.Sprite("upgrade.png")
-            self.upgradeButton6 = arcade.Sprite("upgrade.png")
-            self.upgradeButton7 = arcade.Sprite("upgrade.png")
-            self.upgradeButton8 = arcade.Sprite("upgrade.png")
-            self.upgradeButton9 = arcade.Sprite("upgrade.png")
-            self.upgradeButton10 = arcade.Sprite("upgrade.png")
-            self.upgradeButton11 = arcade.Sprite("upgrade.png")
-            self.upgradeButton12 = arcade.Sprite("upgrade.png")
-            self.upgradeButton13 = arcade.Sprite("upgrade.png")
-            self.upgradeButton14 = arcade.Sprite("upgrade.png")
-            self.upgradeButton15 = arcade.Sprite("upgrade.png")
-            self.upgradeButton16 = arcade.Sprite("upgrade.png")
-
-            
-            self.upgradeButtons = []
-            self.upgradeButtons.append(self.upgradeButton1)
-            self.upgradeButtons.append(self.upgradeButton2)
-            self.upgradeButtons.append(self.upgradeButton3)
-            self.upgradeButtons.append(self.upgradeButton4)
-            self.upgradeButtons.append(self.upgradeButton5)
-            self.upgradeButtons.append(self.upgradeButton6)
-            self.upgradeButtons.append(self.upgradeButton7)
-            self.upgradeButtons.append(self.upgradeButton8)
-            self.upgradeButtons.append(self.upgradeButton9)
-            self.upgradeButtons.append(self.upgradeButton10)
-            self.upgradeButtons.append(self.upgradeButton11)
-            self.upgradeButtons.append(self.upgradeButton12)
-            self.upgradeButtons.append(self.upgradeButton13)
-            self.upgradeButtons.append(self.upgradeButton14)
-            self.upgradeButtons.append(self.upgradeButton15)        
-            self.upgradeButtons.append(self.upgradeButton16)
-
-
-            for i in range(16):
-                self.upgradeButtons[i].width = 85        
-                self.upgradeButtons[i].height = 25
-                self.upgradeButtons[i].center_x = 200
-                self.upgradeButtons[i].center_y = 591 - i * 37
-                
-                
-            print(self.upgradeButton1.width)
-
-            self.coinText = arcade.draw_text("Coins: " + str(self.coins), 395, 700, arcade.color.BLACK, 20)
-            self.coinText.bold = True
-            
-            self.enemy2 = arcade.Sprite("enemy" + str(self.enemySprites) + ".png", 8)
-            #self.enemy2.width = 200
-            #self.enemy2.height = 200
-            self.enemy2.center_x = 650
-            self.enemy2.center_y = 350
-            
-            
-            print(self.level % 7)
+           
         
         if startview:
             arcade.set_background_color(arcade.csscolor.DARK_SLATE_BLUE)
@@ -177,7 +178,10 @@ class MyGame(arcade.Window):
             
             
             self.hpbar.draw()
+            self.enemy2.center_x = 650
+            self.enemy2.center_y = 350
             self.enemy2.draw()
+            
             
             #print(self.coinText.text)
             self.coinText.draw()
@@ -252,6 +256,7 @@ class MyGame(arcade.Window):
         #arcade.draw_rectangle_filled(650, 540, 150, 60, arcade.color.GREEN)
 
     def on_mouse_press(self, x, y, button, modifiers):
+        global gameview
         if gameview:
             if button == arcade.MOUSE_BUTTON_LEFT:
                 print("Left mouse button pressed at", x, y)
@@ -343,6 +348,7 @@ class MyGame(arcade.Window):
                         else:
                             print("You do not have the funds for this sir")
                     self.coinText = arcade.draw_text("Coins: " + str(round(self.coins)), 395, 700, arcade.color.BLACK, 20)
+        global startview
         if startview:
             startview = False
             gameview = True
