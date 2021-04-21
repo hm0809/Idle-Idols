@@ -3,6 +3,7 @@ import random
 import time
 import threading
 import datetime
+import math
 
 
 # --- Constants ---
@@ -48,10 +49,10 @@ class MyGame(arcade.Window):
     def __init__(self):
         """ Initializer """
         # Call the parent class initializer
-        super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, "Sprites With Walls Example")
+        super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, "IDLE IDOLS")
         self.baseHp = 400
         self.hp = self.baseHp
-        self.coins = 500000000
+        self.coins = 0
         #self.enemy = enemy(650, 350, 100, arcade.color.BLUE, self.hp)
         self.hpbar = hpbar(200-self.hp/self.baseHp*200)
         self.coinsAdded = arcade.draw_text("+ 0", 600, 700, arcade.color.YELLOW, 20)
@@ -274,8 +275,9 @@ class MyGame(arcade.Window):
                             self.hpbar = hpbar(200-self.hp/self.bossHp*200)
                         else:
                             self.hpbar = hpbar(200-self.hp/self.baseHp*200)
-                        self.coins += 2
-                        self.coinsAdded = arcade.draw_text("+ " + str(2), 600, 700, arcade.color.YELLOW, 20)
+                        self.coins += round(2*self.level * math.ceil(self.level/10) * 2)
+                        print(round(2*self.level * math.ceil(self.level/10) * 2))
+                        self.coinsAdded = arcade.draw_text("+ " + str(round(2*self.level * math.ceil(self.level/10) * 2)), 600, 700, arcade.color.YELLOW, 20)
                         self.coinText = arcade.draw_text("Coins: " + str(self.coins), 395, 700, arcade.color.BLACK, 20)
                         
                         print("coins: " + str(self.coins))
@@ -307,7 +309,7 @@ class MyGame(arcade.Window):
                                 #### Error must be fixed ####
                                 
                                 
-                                
+                                 
                                 """def gfg():
                                     print("Worked")
     
